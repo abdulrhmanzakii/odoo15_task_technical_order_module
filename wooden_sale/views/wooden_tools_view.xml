@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wooden_button_view" model="ir.ui.view">
+        <field name="name">technical.order.inherited.wooden</field>
+        <field name="model">technical.order</field>
+        <field name="inherit_id" ref="wooden_tools_store.view_store_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_draft']" position="before">
+                <button string="Create SO" name="action_create_so_new" type="object" class="oe_highlight"
+                        attrs="{'invisible':['|',('so_created','!=',False),('state','!=','approve')]}"
+                        title="Create new sale order" />
+            </xpath>
+            <xpath expr="//field[@name='end_date']" position="after">
+                <field name="so_created" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_action_wooden_new" model="ir.actions.act_window">
+        <field name="name">Wooden Store</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form,tree,graph</field>
+        <field name="domain">[('technical_order_id', '=', active_id)]</field>
+        <field name="context">{'search_default_technical_order_id': active_id, 'default_technical_order_id': active_id}</field>
+    </record>
+
+    <record id="sale_view_inherit_wooden" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="technical_order_id" groups="base.group_no_one"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

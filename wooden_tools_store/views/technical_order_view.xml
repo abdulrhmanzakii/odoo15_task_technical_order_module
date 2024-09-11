@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_store_order_tree" model="ir.ui.view">
+        <field name="name">store.orders.form.tree</field>
+        <field name="model">technical.order</field>
+        <field name="arch" type="xml">
+            <tree sample="1" decoration-danger="state == 'cancel'" decoration-success="state == 'approve'"
+                  decoration-info="state == 'draft'" multi_edit="1">
+                <field name="seq"/>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="so_count" string="Sales Count" sum="Sale order count"/>
+                <field name="confirm_user"/>
+                <field name="amount_total" decoration-bf="1"/>
+                <field name="state"  optional="show"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_store_order_form" model="ir.ui.view">
+        <field name="name">store.orders.form</field>
+        <field name="model">technical.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_draft" string="Reset Draft" class="oe_highlight"
+                            type="object" states="cancel,reject,approve"/>
+                    <button name="action_submit" string="Submit" class="oe_highlight"
+                            type="object" states="draft"/>
+                    <button name="action_approve" string="Approve" class="oe_highlight"
+                            type="object" states="submit"/>
+                    <button name="%(wooden_tools_store.action_reject_order)d" string="Reject" class="oe_highlight"
+                            type="action" states="submit"/>
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,submit,cancel,approve,so"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_sale_order" icon="fa-globe">
+                            <field string="Sales Count" name="so_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div>
+                        <h1>
+                            <label for="seq" string="Sequence" class="oe_edit_only"/>
+                            <field name="seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="sale_id" groups="base.group_no_one"/>
+                        </group>
+                        <group>
+                            <field name="confirm_user"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="reject" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Rejection" decoration-danger="state == 'cancel'">
+                            <field name="reject"/>
+                        </page>
+                        <page string="Technical Product">
+                            <field name="technical_order_line_ids">
+                                <tree editable='top'>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="price_unit" widget="monetary"/>
+                                    <field name="qty"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="price_sub_total" sum="Sub Total"/>
+                                </tree>
+                                <form>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="price_unit"/>
+                                    <field name="qty"/>
+                                </form>
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4">
+                                    <field name="note" class="oe-bordered-editor" nolabel="1"
+                                           placeholder="Terms and conditions..."/>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" name="amount_total">
+                                    <field name="amount_total"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                    <field name="activity_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_store_order_search" model="ir.ui.view">
+        <field name="name">Store Orders</field>
+        <field name="model">technical.order</field>
+        <field name="arch" type="xml">
+            <search>
+
+
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_store_order">
+        <field name="name">Store Orders</field>
+        <field name="res_model">technical.order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <!-- make default search 'search_default_filter_male' : 1-->
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_no_content_smiling_face">
+                Create the first Store Orders
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Store Orders"
+              id="menu_store_orders"
+              action="action_store_order"
+              parent="menu_orders_master"
+              sequence="0"/>
+
+
+</odoo>

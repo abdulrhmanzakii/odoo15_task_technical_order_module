@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="report_technical_details" model="ir.actions.report">
+        <field name="name">Technical Order Details</field>
+        <field name="model">technical.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wooden_tools_store.report_technical_detailss</field>
+        <field name="report_file">wooden_tools_store.report_technical_detailss</field>
+        <field name="binding_model_id" ref="model_technical_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+
+
+
+</odoo>

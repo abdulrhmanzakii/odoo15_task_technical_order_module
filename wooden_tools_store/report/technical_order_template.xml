@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_technical_detailss">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="text-center">
+                        <center>
+                            <div class="page">
+                                <div class="row">
+                                    <table class="table table-condensed" style="border: 2px solid black !important;">
+                                        <thead>
+                                            <tr>
+                                                <th name="th_name" class="text-left">
+                                                    <span>Name</span>
+                                                </th>
+                                                <th name="th_exam_type" class="text-left">
+                                                    <span>Partner</span>
+                                                </th>
+                                                <th name="th_serial" class="text-left">
+                                                    <span>Confirmed By</span>
+                                                </th>
+                                                <th name="th_start_date" class="text-left">
+                                                    <span>Start Date</span>
+                                                </th>
+                                                <th name="th_mark" clas="text-left">
+                                                    <span>End Date</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span t-field="o.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="o.partner_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="o.confirm_user"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="o.start_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="o.end_date"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </center>
+
+                        <table class="table table-bordered mt32" style="font-size:22px">
+                            <tr>
+                                <th width="10%">Price Total</th>
+                                <th width="10%">Qty</th>
+                                <th width="10%">Price Unit</th>
+                                <th width="60%">Product</th>
+
+                            </tr>
+                            <t t-foreach="docs.technical_order_line_ids" t-as="o">
+                                <tr class="text-center">
+                                    <td width="10%">
+                                        <t t-esc="o.price_sub_total"/>
+                                    </td>
+                                    <td width="10%">
+                                        <t t-esc="o.qty"/>
+                                    </td>
+                                    <td width="10%">
+                                        <t t-esc="o.price_unit"/>
+                                    </td>
+                                    <td style="font-size:22px;text-align:right" width="30%">
+                                        <t t-esc="o.product_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr class="text-right">
+                                <td colspan="5">
+                                    <span>Total :</span>
+                                    <span style="font-weight:bold">
+                                        <t t-esc="o.technical_order_id.amount_total"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

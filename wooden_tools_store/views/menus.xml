@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="Technical Orders"
+              id="menu_technical_root"
+              sequence="0"/>
+
+    <menuitem name="Orders"
+              id="menu_orders_master"
+              parent="menu_technical_root"
+              sequence="0"/>
+
+
+
+</odoo>

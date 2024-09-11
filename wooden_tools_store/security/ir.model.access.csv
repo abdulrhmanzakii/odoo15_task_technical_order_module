@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.technical.order,access_technical_order,wooden_tools_store.model_technical_order,base.group_user,1,1,1,1
+access.technical.lines.ids,access_technical_lines_ids,wooden_tools_store.model_technical_lines_ids,base.group_user,1,1,1,1
+access.cancel.order.wizard,access_cancel_order_wizard,wooden_tools_store.model_cancel_order_wizard,base.group_user,1,1,1,1
+
+
+
+
+
